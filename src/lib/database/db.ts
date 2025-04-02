@@ -1,5 +1,15 @@
-import mongoose, { ConnectOptions } from "mongoose";
-import { MONGODB_URI } from "../env";
+import mongoose from "mongoose";
+
+const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/testdb";
+
+import type { ConnectOptions } from "mongoose";
+
+mongoose
+  .connect(mongoURI, {} as ConnectOptions)
+  .then((): void => console.log("MongoDB connected successfully!"))
+  .catch((err: Error): void => console.error("MongoDB connection error:", err));
+
+export const MONGODB_URI = process.env.MONGODB_URI || "your-default-mongodb-uri";
 
 // Ensure the MongoDB URI is defined
 if (!MONGODB_URI) {
